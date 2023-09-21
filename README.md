@@ -1,2 +1,2 @@
 # blablo
-TS/JS logger
+TS/JS/Bash/Go logger
