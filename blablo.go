@@ -11,10 +11,34 @@ type Logger struct {
 	*slog.Logger // Embed the slog.Logger to extend it if needed
 }
 
-func NewLogger(prefix string) *Logger {
+type Level string
+
+const (
+	LevelDebug Level = "debug"
+	LevelInfo  Level = "info"
+	LevelWarn  Level = "warn"
+	LevelError Level = "error"
+)
+
+func getLogLevelFromString(level string) slog.Level {
+	switch level {
+	case "debug":
+		return slog.LevelDebug
+	case "info":
+		return slog.LevelInfo
+	case "warn":
+		return slog.LevelWarn
+	case "error":
+		return slog.LevelError
+	default:
+		return slog.LevelDebug
+	}
+}
+
+func NewLogger(prefix string, logLevel string) *Logger {
 	opts := pkg.PrettyHandlerOptions{
 		SlogOpts: slog.HandlerOptions{
-			Level: slog.LevelDebug,
+			Level: getLogLevelFromString(logLevel),
 		},
 	}
 	handler := pkg.NewPrettyHandler(prefix, os.Stdout, opts)

@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	logger := blablo.NewLogger("main")
+	logger := blablo.NewLogger("main", string(blablo.LevelDebug))
 	logger.Info(c.WithGreenCyan49("Blablo going Green&Cyan"))
 	logger.Warn("Example warning message")
 	logger.Error("Example error message")
