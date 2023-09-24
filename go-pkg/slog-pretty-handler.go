@@ -67,7 +67,10 @@ func NewPrettyHandler(
 	out io.Writer,
 	opts PrettyHandlerOptions,
 ) *PrettyHandler {
-	normPrefix := TrimOrPadStringRight(prefix, 10) + " | "
+	normPrefix := ""
+	if opts.SlogOpts.Level == slog.LevelDebug {
+		normPrefix = TrimOrPadStringRight(prefix, 10) + " | "
+	}
 
 	handler := &PrettyHandler{
 		Handler: slog.NewJSONHandler(out, &opts.SlogOpts),
