@@ -21,4 +21,4 @@ run-go-examples: ## run "examples"
 	go run ./go-examples 
 
 go-publish: ## publish blablo
-	GOPROXY=proxy.golang.org go list -m github.com/oleksii-honchar/blablo@v0.1.0
+	GOPROXY=proxy.golang.org go list -m github.com/oleksii-honchar/blablo@v0.2.1
