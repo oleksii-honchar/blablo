@@ -8,6 +8,8 @@ BOLD_ON=\033[1m
 BOLD_OFF=\033[21m
 CLEAR=\033[2J
 
+LATEST_VERSION := $(shell cat ./latest-version.txt)
+
 .PHONY: help
 
 help:
@@ -21,4 +23,4 @@ run-go-examples: ## run "examples"
 	go run ./go-examples 
 
 go-publish: ## publish blablo
-	GOPROXY=proxy.golang.org go list -m github.com/oleksii-honchar/blablo@v0.2.2
+	GOPROXY=proxy.golang.org go list -m github.com/oleksii-honchar/blablo@$(LATEST_VERSION)

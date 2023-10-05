@@ -12,6 +12,8 @@ func TrimOrPadStringRight(s string, targetLength int) string {
 	} else if len(s) < targetLength {
 		padding := strings.Repeat(spacer, targetLength-len(s))
 		result = s + padding
+	} else {
+		result = s
 	}
 	return result
 }
