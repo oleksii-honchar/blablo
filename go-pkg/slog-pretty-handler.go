@@ -12,7 +12,8 @@ import (
 )
 
 type PrettyHandlerOptions struct {
-	SlogOpts slog.HandlerOptions
+	SlogOpts  slog.HandlerOptions
+	UseColors bool
 }
 
 type PrettyHandler struct {
@@ -48,13 +49,13 @@ func (handler *PrettyHandler) Handle(ctx context.Context, rec slog.Record) error
 	}
 
 	// timeStr := rec.Time.Format("2006/01/02 15:05:05.000")
-	msg := c.White + rec.Message + c.Reset
+	msg := c.White() + rec.Message + c.Reset()
 
 	// line := fmt.Sprintf("%s %s %s", c.Gray247+timeStr+c.Reset, level, msg)
 	line := fmt.Sprintf("%s %s", level, msg)
 
 	if len(fields) > 0 {
-		line += " " + c.Yellow + string(jsonStr) + c.Reset
+		line += " " + c.Yellow() + string(jsonStr) + c.Reset()
 	}
 
 	handler.logger.Println(line)
@@ -67,6 +68,8 @@ func NewPrettyHandler(
 	out io.Writer,
 	opts PrettyHandlerOptions,
 ) *PrettyHandler {
+	c.UseColors = opts.UseColors
+
 	normPrefix := ""
 	if opts.SlogOpts.Level == slog.LevelDebug {
 		normPrefix = TrimOrPadStringRight(prefix, 10) + " | "

@@ -35,11 +35,12 @@ func getLogLevelFromString(level string) slog.Level {
 	}
 }
 
-func NewLogger(prefix string, logLevel string) *Logger {
+func NewLogger(prefix string, logLevel string, useColors bool) *Logger {
 	opts := pkg.PrettyHandlerOptions{
 		SlogOpts: slog.HandlerOptions{
 			Level: getLogLevelFromString(logLevel),
 		},
+		UseColors: useColors,
 	}
 	handler := pkg.NewPrettyHandler(prefix, os.Stdout, opts)
 	logger := slog.New(handler)
